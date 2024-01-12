@@ -1,0 +1,9 @@
+name: Cargo build and test
+description: Use Cargo to build and test Reindeer
+runs:
+  using: composite
+  steps:
+      - run: cargo build --locked
+        shell: bash
+      - run: cargo test
+        shell: bash

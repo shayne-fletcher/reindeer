@@ -1,5 +1,5 @@
-name: Setup Linux environment
-description: Setup Linux environment for building and testing Reindeer
+name: Setup macOS environment
+description: Setup macOS environment for building and testing Reindeer
 runs:
   using: composite
   steps:

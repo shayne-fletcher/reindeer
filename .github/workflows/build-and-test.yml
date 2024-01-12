@@ -8,5 +8,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup_linux_env
-      - run: cargo build --locked
-      - run: cargo test
+      - uses: ./.github/actions/cargo_build_and_test
+  macos-build-and-test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup_macos_env
+      - uses: ./.github/actions/cargo_build_and_test
+  windows-build-and-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup_windows_env
+      - uses: ./.github/actions/cargo_build_and_test
