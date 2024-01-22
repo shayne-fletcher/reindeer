@@ -13,33 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: Swatinem/rust-cache@v2
+      - run: echo CARGO_HOME=$GITHUB_WORKSPACE/.cargo >> $GITHUB_ENV
+        shell: bash
       - run: cargo build --locked
       - run: cargo test
-      - run: |
-          mkdir -p shim/third-party/rust/top
-
-          cat >> shim/third-party/rust/top/main.rs<<EOF
-          fn main() {}
-          EOF
-
-          cat >> shim/third-party/rust/Cargo.toml<<EOF
-          [workspace]
-
-          [package]
-          name = "rust-third-party"
-          version = "0.0.0"
-          publish = false
-          edition = "2021"
-
-          [[bin]]
-          name = "top"
-          path = "top/main.rs"
-
-          [dependencies]
-          anyhow = "1.0.65"
-          EOF
-
-          cargo run -- --third-party-dir shim/third-party/rust buckify
-          cat shim/third-party/rust/BUCK
+      - run: |-
+          cd example
+          ./setup.sh # runs reindeer buckify
+          cat ./third-party/BUCK
         shell: bash
-        if: matrix.os != 'windows'
