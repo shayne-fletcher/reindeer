@@ -42,3 +42,4 @@ jobs:
           cargo run -- --third-party-dir shim/third-party/rust buckify
           cat shim/third-party/rust/BUCK
         shell: bash
+        if: matrix.os != 'windows'
